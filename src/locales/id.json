@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "movies": "Film",
+    "favorites": "Favorit",
+    "logout": "Keluar"
+  },
+  "login": {
+    "title": "Selamat Datang di OMDb Movies",
+    "subtitle": "Masuk untuk menjelajahi film",
+    "username": "Nama Pengguna",
+    "usernamePlaceholder": "Masukkan nama pengguna Anda",
+    "password": "Kata Sandi",
+    "passwordPlaceholder": "Masukkan kata sandi Anda",
+    "submit": "Masuk",
+    "loading": "Sedang masuk...",
+    "invalidCredentials": "Nama pengguna atau kata sandi tidak valid",
+    "error": "Terjadi kesalahan. Silakan coba lagi.",
+    "demoLabel": "Kredensial Demo:"
+  },
+  "movieList": {
+    "title": "Daftar Film",
+    "searchPlaceholder": "Cari film...",
+    "loading": "Memuat film...",
+    "noMoviesFound": "Film tidak ditemukan",
+    "fetchError": "Gagal memuat film. Silakan coba lagi.",
+    "empty": "Tidak Ada Film Ditemukan",
+    "emptyDescription": "Coba cari film untuk memulai",
+    "noPosterAvailable": "Tanpa Poster",
+    "addToFavorites": "Tambah ke Favorit",
+    "removeFromFavorites": "Hapus dari Favorit",
+    "resultCount": "Menampilkan {{count}} dari {{total}} hasil"
+  },
+  "movieDetail": {
+    "loading": "Memuat detail film...",
+    "notFound": "Film tidak ditemukan",
+    "fetchError": "Gagal memuat detail film",
+    "backToList": "Kembali ke Daftar",
+    "noPosterAvailable": "Tidak Ada Poster Tersedia",
+    "addToFavorites": "Tambah ke Favorit",
+    "inFavorites": "Di Favorit",
+    "year": "Tahun",
+    "rated": "Rating",
+    "runtime": "Durasi",
+    "genre": "Genre",
+    "director": "Sutradara",
+    "writer": "Penulis",
+    "actors": "Aktor",
+    "country": "Negara",
+    "language": "Bahasa",
+    "awards": "Penghargaan",
+    "plot": "Plot",
+    "votes": "Voting IMDB"
+  },
+  "favorites": {
+    "title": "Film Favorit Saya",
+    "empty": "Belum Ada Favorit",
+    "emptyDescription": "Mulai tambahkan film favorit Anda untuk melihatnya di sini",
+    "noPosterAvailable": "Tanpa Poster",
+    "removeFromFavorites": "Hapus dari Favorit",
+    "remove": "Hapus",
+    "count": "Anda memiliki {{count}} film favorit",
+    "explorMovies": "Jelajahi Film"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "movies": "Movies",
+    "favorites": "Favorites",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Welcome to OMDb Movies",
+    "subtitle": "Sign in to explore movies",
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Sign In",
+    "loading": "Signing in...",
+    "invalidCredentials": "Invalid username or password",
+    "error": "An error occurred. Please try again.",
+    "demoLabel": "Demo Credentials:"
+  },
+  "movieList": {
+    "title": "Movie List",
+    "searchPlaceholder": "Search movies...",
+    "loading": "Loading movies...",
+    "noMoviesFound": "No movies found",
+    "fetchError": "Failed to fetch movies. Please try again.",
+    "empty": "No Movies Found",
+    "emptyDescription": "Try searching for a movie to get started",
+    "noPosterAvailable": "No Poster",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
+    "resultCount": "Showing {{count}} of {{total}} results"
+  },
+  "movieDetail": {
+    "loading": "Loading movie details...",
+    "notFound": "Movie not found",
+    "fetchError": "Failed to fetch movie details",
+    "backToList": "Back to List",
+    "noPosterAvailable": "No Poster Available",
+    "addToFavorites": "Add to Favorites",
+    "inFavorites": "In Favorites",
+    "year": "Year",
+    "rated": "Rated",
+    "runtime": "Runtime",
+    "genre": "Genre",
+    "director": "Director",
+    "writer": "Writer",
+    "actors": "Actors",
+    "country": "Country",
+    "language": "Language",
+    "awards": "Awards",
+    "plot": "Plot",
+    "votes": "IMDB Votes"
+  },
+  "favorites": {
+    "title": "My Favorite Movies",
+    "empty": "No Favorites Yet",
+    "emptyDescription": "Start adding your favorite movies to see them here",
+    "noPosterAvailable": "No Poster",
+    "removeFromFavorites": "Remove from Favorites",
+    "remove": "Remove",
+    "count": "You have {{count}} favorite movie(s)",
+    "explorMovies": "Explore Movies"
+  }
+}
