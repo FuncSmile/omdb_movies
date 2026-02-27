@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/hooks';
 import { useTranslation } from 'react-i18next';
-import '../styles/Login.css';
 
 export function Login() {
   const [username, setUsername] = useState('');
@@ -33,16 +32,24 @@ export function Login() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h1 className="login-title">{t('login.title')}</h1>
-        <p className="login-subtitle">{t('login.subtitle')}</p>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary to-secondary">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-2xl p-8">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          🎬 {t('login.title')}
+        </h1>
+        <p className="text-center text-gray-600 mb-6">{t('login.subtitle')}</p>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700 rounded">
+            {error}
+          </div>
+        )}
 
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <label htmlFor="username">{t('login.username')}</label>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              {t('login.username')}
+            </label>
             <input
               id="username"
               type="text"
@@ -50,12 +57,14 @@ export function Login() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder={t('login.usernamePlaceholder')}
               disabled={isLoading}
-              className="form-input"
+              className="input-base w-full disabled:bg-gray-100 disabled:cursor-not-allowed"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">{t('login.password')}</label>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              {t('login.password')}
+            </label>
             <input
               id="password"
               type="password"
@@ -63,19 +72,26 @@ export function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder={t('login.passwordPlaceholder')}
               disabled={isLoading}
-              className="form-input"
+              className="input-base w-full disabled:bg-gray-100 disabled:cursor-not-allowed"
             />
           </div>
 
-          <button type="submit" disabled={isLoading} className="login-button">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            {isLoading && <div className="spinner" />}
             {isLoading ? t('login.loading') : t('login.submit')}
           </button>
         </form>
 
-        <div className="demo-credentials">
-          <p className="demo-label">{t('login.demoLabel')}</p>
-          <p>👤 {t('login.username')}: <code>aldmic</code></p>
-          <p>🔐 {t('login.password')}: <code>123abc123</code></p>
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <p className="text-sm font-semibold text-gray-700 mb-3">{t('login.demoLabel')}</p>
+          <div className="space-y-2 text-sm text-gray-600 bg-gray-50 p-3 rounded">
+            <p>👤 {t('login.username')}: <code className="font-mono font-bold text-primary">aldmic</code></p>
+            <p>🔐 {t('login.password')}: <code className="font-mono font-bold text-primary">123abc123</code></p>
+          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import { omdbService } from '../services/omdbService';
 import { useFavorites } from '../utils/hooks';
 import { useTranslation } from 'react-i18next';
 import type { MovieDetail as MovieDetailType, Movie } from '../types';
-import '../styles/MovieDetail.css';
 
 export function MovieDetail() {
   const { id } = useParams<{ id: string }>();
@@ -54,99 +53,121 @@ export function MovieDetail() {
 
   if (isLoading) {
     return (
-      <div className="movie-detail-container">
-        <div className="loading-indicator">{t('movieDetail.loading')}</div>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex items-center justify-center py-12 gap-2">
+          <div className="spinner"></div>
+          <span className="text-gray-600">{t('movieDetail.loading')}</span>
+        </div>
       </div>
     );
   }
 
   if (error || !movie) {
     return (
-      <div className="movie-detail-container">
-        <div className="error-message">{error || t('movieDetail.notFound')}</div>
-        <button onClick={() => navigate('/movies')} className="back-button">
-          {t('movieDetail.backToList')}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded">
+          {error || t('movieDetail.notFound')}
+        </div>
+        <button
+          onClick={() => navigate('/movies')}
+          className="btn-secondary"
+        >
+          ← {t('movieDetail.backToList')}
         </button>
       </div>
     );
   }
 
   return (
-    <div className="movie-detail-container">
-      <button onClick={() => navigate('/movies')} className="back-button">
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <button
+        onClick={() => navigate('/movies')}
+        className="mb-6 px-4 py-2 text-primary hover:text-secondary font-medium transition-colors"
+      >
         ← {t('movieDetail.backToList')}
       </button>
 
-      <div className="movie-detail-content">
-        <div className="movie-detail-poster">
-          {movie.Poster && movie.Poster !== 'N/A' ? (
-            <img src={movie.Poster} alt={movie.Title} className="detail-poster-image" />
-          ) : (
-            <div className="no-poster">{t('movieDetail.noPosterAvailable')}</div>
-          )}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="md:col-span-1">
+          <div className="card p-0 overflow-hidden">
+            {movie.Poster && movie.Poster !== 'N/A' ? (
+              <img
+                src={movie.Poster}
+                alt={movie.Title}
+                className="w-full h-auto object-cover"
+              />
+            ) : (
+              <div className="w-full aspect-video bg-gray-300 flex items-center justify-center text-gray-600">
+                {t('movieDetail.noPosterAvailable')}
+              </div>
+            )}
+          </div>
           <button
-            className={`favorite-btn-detail ${isFavorited(movie.imdbID) ? 'favorited' : ''}`}
+            className={`mt-4 w-full btn-primary ${isFavorited(movie.imdbID) ? 'bg-red-500 hover:bg-red-600' : ''}`}
             onClick={handleAddFavorite}
           >
             ♥ {isFavorited(movie.imdbID) ? t('movieDetail.inFavorites') : t('movieDetail.addToFavorites')}
           </button>
         </div>
 
-        <div className="movie-detail-info">
-          <h1>{movie.Title}</h1>
-          <p className="rating">⭐ {movie.imdbRating}/10</p>
+        <div className="md:col-span-2">
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">{movie.Title}</h1>
+          <p className="text-2xl text-yellow-500 font-semibold mb-6">⭐ {movie.imdbRating}/10</p>
 
-          <div className="detail-grid">
-            <div className="detail-item">
-              <label>{t('movieDetail.year')}:</label>
-              <span>{movie.Year}</span>
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.year')}</p>
+              <p className="text-gray-800">{movie.Year}</p>
             </div>
-            <div className="detail-item">
-              <label>{t('movieDetail.rated')}:</label>
-              <span>{movie.Rated}</span>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.rated')}</p>
+              <p className="text-gray-800">{movie.Rated}</p>
             </div>
-            <div className="detail-item">
-              <label>{t('movieDetail.runtime')}:</label>
-              <span>{movie.Runtime}</span>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.runtime')}</p>
+              <p className="text-gray-800">{movie.Runtime}</p>
             </div>
-            <div className="detail-item">
-              <label>{t('movieDetail.genre')}:</label>
-              <span>{movie.Genre}</span>
-            </div>
-            <div className="detail-item">
-              <label>{t('movieDetail.director')}:</label>
-              <span>{movie.Director}</span>
-            </div>
-            <div className="detail-item">
-              <label>{t('movieDetail.writer')}:</label>
-              <span>{movie.Writer}</span>
-            </div>
-            <div className="detail-item full-width">
-              <label>{t('movieDetail.actors')}:</label>
-              <span>{movie.Actors}</span>
-            </div>
-            <div className="detail-item full-width">
-              <label>{t('movieDetail.country')}:</label>
-              <span>{movie.Country}</span>
-            </div>
-            <div className="detail-item full-width">
-              <label>{t('movieDetail.language')}:</label>
-              <span>{movie.Language}</span>
-            </div>
-            <div className="detail-item full-width">
-              <label>{t('movieDetail.awards')}:</label>
-              <span>{movie.Awards}</span>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.genre')}</p>
+              <p className="text-gray-800">{movie.Genre}</p>
             </div>
           </div>
 
-          <div className="plot-section">
-            <h2>{t('movieDetail.plot')}:</h2>
-            <p>{movie.Plot}</p>
+          <div className="space-y-4 mb-6">
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.director')}</p>
+              <p className="text-gray-800">{movie.Director}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.writer')}</p>
+              <p className="text-gray-800">{movie.Writer}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.actors')}</p>
+              <p className="text-gray-800">{movie.Actors}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.country')}</p>
+              <p className="text-gray-800">{movie.Country}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.language')}</p>
+              <p className="text-gray-800">{movie.Language}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 font-semibold">{t('movieDetail.awards')}</p>
+              <p className="text-gray-800">{movie.Awards}</p>
+            </div>
           </div>
 
-          <div className="votes-section">
-            <p>{t('movieDetail.votes')}: {movie.imdbVotes}</p>
+          <div className="card p-6 bg-blue-50">
+            <h2 className="text-xl font-bold text-gray-800 mb-3">{t('movieDetail.plot')}</h2>
+            <p className="text-gray-700 leading-relaxed">{movie.Plot}</p>
           </div>
+
+          <p className="mt-6 text-sm text-gray-600">
+            {t('movieDetail.votes')}: <span className="font-semibold text-gray-800">{movie.imdbVotes}</span>
+          </p>
         </div>
       </div>
     </div>

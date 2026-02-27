@@ -4,7 +4,6 @@ import { omdbService } from '../services/omdbService';
 import { useFavorites } from '../utils/hooks';
 import { useTranslation } from 'react-i18next';
 import type { Movie } from '../types';
-import '../styles/MovieList.css';
 
 export function MovieList() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -115,55 +114,63 @@ export function MovieList() {
   };
 
   return (
-    <div className="movie-list-container">
-      <div className="search-header">
-        <h1>{t('movieList.title')}</h1>
-        <div className="search-box">
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-gray-800 mb-6">{t('movieList.title')}</h1>
+        <div className="flex gap-2">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             placeholder={t('movieList.searchPlaceholder')}
-            className="search-input"
+            className="input-base flex-1"
           />
-          {isSearching && <div className="search-spinner"></div>}
+          {isSearching && <div className="spinner"></div>}
         </div>
       </div>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded">
+          {error}
+        </div>
+      )}
 
       {movies.length === 0 && !isLoading && !error && (
-        <div className="empty-state">
-          <h2>{t('movieList.empty')}</h2>
-          <p>{t('movieList.emptyDescription')}</p>
+        <div className="text-center py-12">
+          <h2 className="text-2xl font-bold text-gray-600 mb-2">{t('movieList.empty')}</h2>
+          <p className="text-gray-500">{t('movieList.emptyDescription')}</p>
         </div>
       )}
 
       {movies.length > 0 && (
-        <div className="movie-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
           {movies.map(movie => (
             <div
               key={movie.imdbID}
-              className="movie-card"
+              className="card cursor-pointer overflow-hidden hover:shadow-xl transition-shadow duration-300"
               onClick={() => handleMovieClick(movie.imdbID)}
             >
-              <div className="movie-poster-container">
+              <div className="relative w-full bg-gray-200 overflow-hidden" style={{ paddingBottom: '150%' }}>
                 {movie.Poster && movie.Poster !== 'N/A' ? (
                   <img
                     src={movie.Poster}
                     alt={movie.Title}
-                    className="movie-poster lazy-load"
+                    className="absolute inset-0 w-full h-full object-cover"
                     loading="lazy"
                   />
                 ) : (
-                  <div className="no-poster">{t('movieList.noPosterAvailable')}</div>
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-300 text-gray-600">
+                    {t('movieList.noPosterAvailable')}
+                  </div>
                 )}
               </div>
-              <div className="movie-info">
-                <h3 className="movie-title">{movie.Title}</h3>
-                <p className="movie-year">{movie.Year}</p>
+              <div className="p-4">
+                <h3 className="font-semibold text-gray-800 mb-1 line-clamp-2">{movie.Title}</h3>
+                <p className="text-sm text-gray-600 mb-3">{movie.Year}</p>
                 <button
-                  className={`favorite-btn ${isFavorited(movie.imdbID) ? 'favorited' : ''}`}
+                  className={`text-2xl transition-colors duration-300 ${
+                    isFavorited(movie.imdbID) ? 'text-red-500' : 'text-gray-400 hover:text-red-500'
+                  }`}
                   onClick={(e) => handleAddFavorite(e, movie)}
                   title={isFavorited(movie.imdbID) ? t('movieList.removeFromFavorites') : t('movieList.addToFavorites')}
                 >
@@ -175,12 +182,17 @@ export function MovieList() {
         </div>
       )}
 
-      {isLoading && <div className="loading-indicator">{t('movieList.loading')}</div>}
+      {isLoading && (
+        <div className="flex items-center justify-center py-8 gap-2">
+          <div className="spinner"></div>
+          <span className="text-gray-600">{t('movieList.loading')}</span>
+        </div>
+      )}
 
-      <div ref={observerTarget} className="scroll-observer" />
+      <div ref={observerTarget} className="py-4 text-center" />
 
       {totalResults > 0 && (
-        <p className="results-info">
+        <p className="text-center text-gray-600 text-sm">
           {t('movieList.resultCount', { count: movies.length, total: totalResults })}
         </p>
       )}
